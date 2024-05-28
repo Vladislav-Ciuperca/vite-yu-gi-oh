@@ -1,30 +1,49 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import AppHeader from './components/AppHeader.vue';
+import appLinks from './data/AppHeaderLinks.js';
+import ListaCarte from './components/ListaCarte.vue';
+export default {
+    components: {
+        AppHeader,
+        ListaCarte,
+    },
+    data() {
+        return {
+            appTitle: "Yu-Gi-Oh Api",
+
+            appLinks
+
+        }
+    },
+    methods: {
+
+    },
+    mounted() {
+
+    }
+
+
+}
 </script>
 
+
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+    <AppHeader :title="appTitle" :links="appLinks" />
+    <input type="text" v-model="appTitle">
+    <main>
+        <!-- <h1>Benvenuto in {{ appTitle }}</h1> -->
+        <ListaCarte />
+    </main>
 </template>
 
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+main {
+    padding: 1rem;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 </style>
