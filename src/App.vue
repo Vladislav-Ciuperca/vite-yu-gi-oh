@@ -27,10 +27,14 @@ export default {
 
     },
     created() {
-        axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0").then(risultato => {
-            console.log(risultato.data.data);
+        axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0&fname=blue-eyes").then(risultato => {
+            // console.log(risultato.data.data);
             this.Store.carte = risultato.data.data
         });
+        axios.get("https://db.ygoprodeck.com/api/v7/archetypes.php").then(result => {
+            console.log(result.data);
+            this.prova = result.data
+        })
     },
     mounted() {
 
@@ -45,7 +49,8 @@ export default {
     <AppHeader :title="appTitle" :links="appLinks" />
     <input type="text" v-model="appTitle">
     <main>
-        <ListaCarte />
+        <!-- <ListaCarte /> -->
+        <pre>{{ prova }}</pre>
     </main>
 </template>
 

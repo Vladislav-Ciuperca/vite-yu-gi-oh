@@ -2,7 +2,8 @@ import { reactive } from 'vue'
 
 const informazioni = {
     nome: "Lista carte :",
-    carte: ""
+    carte: "",
+    archetypes: "",
 }
 
 
