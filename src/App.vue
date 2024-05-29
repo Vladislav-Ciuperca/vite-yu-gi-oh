@@ -13,26 +13,32 @@ export default {
     },
     data() {
         return {
-            appTitle: "Yu-Gi-Oh Api",
+            appTitle: "Yu-G-Oh API",
+
+            cercaCarta: "mage",
 
             appLinks,
 
             Store,
 
-            prova: ""
+            prova: "",
 
         }
     },
     methods: {
+        getCarte() {
 
+            axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?&fname=" + this.cercaCarta).then(risultato => {
+                this.Store.carte = risultato.data.data
+            });
+        }
     },
     created() {
-        axios.get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0&fname=blue-eyes").then(risultato => {
-            // console.log(risultato.data.data);
-            this.Store.carte = risultato.data.data
-        });
+        this.getCarte();
+
         axios.get("https://db.ygoprodeck.com/api/v7/archetypes.php").then(result => {
             console.log(result.data);
+            this.Store.archetypes = result.data;
             this.prova = result.data
         })
     },
@@ -47,10 +53,14 @@ export default {
 
 <template>
     <AppHeader :title="appTitle" :links="appLinks" />
-    <input type="text" v-model="appTitle">
+    <select v-model="cercaCarta" @click="getCarte">
+        <option v-for="archetipo in Store.archetypes">{{ archetipo.archetype_name }}</option>
+    </select>
+    <button @click="getCarte">cerca</button>
+    <input v-model="cercaCarta" type="text" @keyup.enter="getCarte">
     <main>
-        <!-- <ListaCarte /> -->
-        <pre>{{ prova }}</pre>
+        <ListaCarte />
+        <!-- <pre>{{ prova }}</pre> -->
     </main>
 </template>
 
@@ -62,6 +72,6 @@ main {
     margin: auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 20px;
 }
 </style>
